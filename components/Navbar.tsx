@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { primaryColor } from "../costants";
-import { useNavigate } from "../hooks/useNavigate";
+import Filters from "./Filters";
 import IconButton from "./IconButton";
 import Title from "./Title";
 
 type Props = {};
 
 const Navbar = (props: Props) => {
-  const { navigateHandler } = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <View style={styles.container}>
       <View></View>
@@ -17,11 +18,10 @@ const Navbar = (props: Props) => {
       </View>
       <View style={styles.iconContainer}>
         <IconButton
-          icon={{ name: "settings", size: 32, color: "#fff" }}
-          onPress={() =>
-            navigateHandler({ hasParams: false, link: "Settings" })
-          }
+          icon={{ name: "filter-alt", size: 32, color: "#fff" }}
+          onPress={() => setIsOpen(true)}
         />
+        <Filters isOpen={isOpen} setIsOpen={setIsOpen} />
       </View>
     </View>
   );
@@ -43,5 +43,6 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     flex: 0.15,
+    marginTop: 20,
   },
 });
